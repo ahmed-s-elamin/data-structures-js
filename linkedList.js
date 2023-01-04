@@ -24,7 +24,7 @@ class LinkedList {
     if (this.isEmpty()) {
       this.head = node; //first node
     } else {
-      //make new node pointing to head node
+      //point new node to head
       node.next = this.head;
       //make new node the head
       this.head = node;
@@ -40,7 +40,7 @@ class LinkedList {
       //find the last node
       let prev = this.head;
       while (prev.next) {
-        prev = prev.next;
+        prev = prev.next; //hop to next node
       }
       //last node points at new node
       prev.next = node;
@@ -61,14 +61,72 @@ class LinkedList {
       console.log(listValues);
     }
   }
+
+  addAt(index, value) {
+    //invalid index
+    if (index < 0 || index > this.getSize) {
+      return console.log("invalid index");
+    } //adding at to the beginning
+    if (index === 0) {
+      this.prepend(value);
+    } else {
+      const node = new Node(value);
+      let prev = this.head;
+      for (let i = 0; i < index - 1; i++) {
+        //advance till reaching the node before the index
+        prev = prev.next;
+      }
+      //connecting new node to other nodes
+      node.next = prev.next; //jus between 2 nodes
+      prev.next = node;
+      this.size++;
+    }
+  }
+
+  removeAt(index) {
+    //invalid index
+    if (index < 0 || index > this.size) {
+      return null;
+    }
+    //removing first index
+    let removedNode;
+    if (index === 0) {
+      removedNode = this.head;
+      this.head = this.head.next; //making next node the head
+    } else {
+      let prev = this.head;
+      for (let i = 0; i < index - 1; i++) {
+        //advance till reaching the node before the index
+        prev = prev.next;
+      }
+      //detaching removed node from the list
+      removedNode = prev.next;
+      prev.next = removedNode.next;
+    }
+    this.size--;
+    return removedNode.value;
+  }
 }
 
 const list = new LinkedList();
 console.log("list is empty? ", list.isEmpty());
 console.log("list size is ", list.getSize());
-list.prepend(10);
-list.prepend(20);
-list.prepend(30);
+
+list.addAt(0, 10);
 list.print();
-list.append(40);
+
+list.addAt(0, 20);
 list.print();
+
+list.addAt(1, 30);
+list.print();
+
+list.addAt(2, 40);
+list.print();
+
+list.removeAt(2);
+list.print();
+
+console.log(list.getSize());
+
+console.log(list.removeAt(1));
