@@ -122,7 +122,7 @@ class LinkedList {
         prev = prev.next;
       }
       if (prev.next) {
-        let removedNode = prev.next;
+        const removedNode = prev.next;
         prev.next = removedNode.next;
         this.size--;
         return value;
@@ -130,28 +130,36 @@ class LinkedList {
       return null;
     }
   }
+
+  search(value) {
+    //empty list
+    if (this.isEmpty()) {
+      return -1;
+    }
+    let i = 0;
+    let curr = this.head;
+    while (curr) {
+      if (curr.value === value) {
+        return i; //found, return index
+      }
+      i++;
+      curr = curr.next; //advance on the list
+    }
+    return -1; //not found
+  }
 }
 
 const list = new LinkedList();
 console.log("list is empty? ", list.isEmpty());
 console.log("list size is ", list.getSize());
 
-list.addAt(0, 10);
-list.print();
+list.append(10);
+list.append(20);
+list.append(30);
+list.append(40);
 
-list.addAt(0, 20);
-list.print();
-
-list.addAt(1, 30);
-list.print();
-
-list.addAt(2, 40);
-list.print();
-
-list.removeAt(2);
 list.print();
 
 console.log(list.getSize());
 
-console.log(list.remove(40));
-list.print();
+console.log(list.search(20));
