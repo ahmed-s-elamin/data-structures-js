@@ -1,3 +1,6 @@
+//linked lists pros include : constant time insertion / deletion
+//
+
 class Node {
   constructor(value) {
     this.value = value;
@@ -147,6 +150,23 @@ class LinkedList {
     }
     return -1; //not found
   }
+
+  reverse() {
+    let curr = this.head;
+    let prev = null;
+    while (curr) {
+      //creating a next node pointer
+      let next = curr.next;
+      //curr points at prev
+      curr.next = prev;
+      //advance prev
+      prev = curr;
+      //advance curr
+      curr = next;
+    }
+    //new first item is head
+    this.head = prev;
+  }
 }
 
 const list = new LinkedList();
@@ -160,6 +180,5 @@ list.append(40);
 
 list.print();
 
-console.log(list.getSize());
-
-console.log(list.search(20));
+list.reverse();
+list.print();
