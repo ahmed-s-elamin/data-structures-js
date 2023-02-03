@@ -10,11 +10,11 @@ class HashTable {
 
   hash(key) {
     let total = 0;
-    //traverse over key characters
+    //traverse over key characters and add character code to the total
     for (let i = 0; i < key.length; i++) {
       total += key.charCodeAt(i);
     }
-    return total % this.size;
+    return total % this.size; //to ensure the range is within the size
   }
 
   set(key, value) {
